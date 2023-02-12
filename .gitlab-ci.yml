@@ -1,7 +1,7 @@
 
 # Define Variable
 variables:
-  TEST_IMAGE: node:16.18.1-alpine3.15
+  TEST_IMAGE: node:16.19.0-alpine3.16
   BUILD_IMAGE: docker:dind
   ENV_FILE: $ENV_FILE_BACKEND
 
