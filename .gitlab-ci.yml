@@ -28,7 +28,7 @@ test-job:
 build-job:
   stage: build
   tags:
-    - ubuntu
+    - docker
   script:
     - docker login registry.khitkabar.xyz:5443 -u khitkabar -p khit.kabar.registry.123
     - docker build . --file Dockerfile --tag registry.khitkabar.xyz:5443/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
