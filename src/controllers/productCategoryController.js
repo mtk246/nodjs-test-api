@@ -1,6 +1,6 @@
-const Joi = require("joi")
-const { updateGen, postGen, ctrx } = require("../helper/crud")
+const { ctrx } = require("../helper/crud")
 const { DB } = require("../helper/db_helper");
+const uuid = require("uuid");
 
 /*
 * Description: Get All Or Get One
@@ -33,27 +33,37 @@ exports.get = ctrx(async (req,res) => {
 * Description: Add new
 * Method: @POST
 */
-exports.insert = postGen({
-    shop_name: Joi.string().required(),
-    township_id: Joi.string().required(),
-    city_id: Joi.string().required(),
-    phone: Joi.string().required(),
-    address: Joi.string().required(),
-    note: Joi.string().optional(),
-    status: Joi.boolean().required()
-},"PurchaseShopTbl",true,true)
+exports.insert = ctrx(async (req,res) => {
+    const {ProductCategoryTbl} = req.models
+    const { cat_name, user_id, channel_id} = req.body
+    const result = await ProductCategoryTbl.query().insert({
+        cat_id: uuid.v4(),
+        cat_name: cat_name,
+        user_id: user_id,
+        channel_id: channel_id,
+        created_at: new Date().toISOString()
+    })
+    return res.status(200).json({
+        message: "Success",
+        result: result
+    })
+})
 
 /*
 * Description: Update
 * Method: @PUT
 */
-exports.update = updateGen({
-    purchase_shop_id: Joi.string().required(),
-    shop_name: Joi.string().required(),
-    township_id: Joi.string().required(),
-    city_id: Joi.string().required(),
-    phone: Joi.string().required(),
-    address: Joi.string().required(),
-    note: Joi.string().optional(),
-    status: Joi.boolean().required()
-},"PurchaseShopTbl",true,true)
+exports.update = ctrx(async (req,res) => {
+    const {ProductCategoryTbl} = req.models
+    const { cat_id, cat_name, user_id, channel_id} = req.body
+    const result = await ProductCategoryTbl.query().patch({
+        cat_name: cat_name,
+        user_id: user_id,
+        channel_id: channel_id,
+        updated_at: new Date().toISOString()
+    }).findById(cat_id)
+    return res.status(200).json({
+        message: "Success",
+        result: result
+    })
+})

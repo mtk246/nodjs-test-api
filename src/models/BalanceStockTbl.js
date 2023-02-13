@@ -1,10 +1,10 @@
 const { Model } = require("objection");
 const uuid = require("uuid")
 
-const TABLE_NAME = "sch_purchase_management.purchase_bill_tbl";
-const TABLE_ID = "purchase_bill_id";
+const TABLE_NAME = "sch_stock_management.balance_stock_tbl";
+const TABLE_ID = "balance_id";
 
-class PurchaseBillTbl extends Model {
+class BalanceStockTbl extends Model {
     static get tableName() {
         return TABLE_NAME;
     }
@@ -21,4 +21,4 @@ class PurchaseBillTbl extends Model {
         this.updated_at = new Date().toISOString();
     }
 }
-module.exports = PurchaseBillTbl;
+module.exports = BalanceStockTbl;

@@ -4,10 +4,11 @@ const helloHandler = require("../controllers/hello_controller");
 const { authCheck } = require("../middlewares/jwt_middleware");
 const { tenantMiddleware } = require("../middlewares/tenant_middleware");
 const productCategoryController = require("../controllers/productCategoryController");
-const purchaseController = require("../controllers/purchaseController");
+const productPriceController = require("../controllers/productPriceController");
 const productController = require("../controllers/productController");
-// const purchaseBillController = require("../controllers/purchaseBillController")
-// const purchaseTypeController = require("../controllers/purchaseTypeController")
+const productStockController = require("../controllers/productStockController");
+const balanceTypeController = require("../controllers/balanceTypeController");
+const balanceStockController = require("../controllers/balanceStockController");
 
 const router = require("express").Router();
 
@@ -20,21 +21,19 @@ router.use(authCheck)  // Pass through permission handler api!
 router.use(tenantMiddleware)
 
 router.get("/product/category", productCategoryController.get)
-router.post("/shop",productCategoryController.insert)
-router.put("/shop",productCategoryController.update)
+router.post("/product/category",productCategoryController.insert)
+router.put("/product/category",productCategoryController.update)
 
 router.get("/list/product",productController.listProducts)
 
-router.get("/purchase",purchaseController.get)
-// router.post("/purchase",purchaseController.insert)
-// router.put("/purchase",purchaseController.update)
+router.get("/product/price",productPriceController.get)
 
-// router.get("/bill",purchaseBillController.get)
-// router.post("/bill",purchaseBillController.insert)
-// router.put("/bill",purchaseBillController.update)
+router.get("/product",productController.get)
 
-// router.get("/type",purchaseTypeController.get)
-// router.post("/type",purchaseTypeController.insert)
-// router.put("/type",purchaseTypeController.update)
+router.get("/product/stock", productStockController.get);
+
+router.get("/balance/type", balanceTypeController.get);
+
+router.get("/balance/stock", balanceStockController.get);
 
 exports.api_router = router;

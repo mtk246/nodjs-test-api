@@ -1,12 +1,12 @@
 const { default: knex } = require("knex");
 const DbDataTbl = require("../models/super.public/DbDataTbl");
-const PurchaseBillTbl = require("../models/PurchaseBillTbl");
+const BalanceStockTbl = require("../models/BalanceStockTbl");
 const ProductCategoryTbl = require("../models/ProductCategoryTbl");
-const PurchaseTbl = require("../models/PurchaseTbl");
-const PurchaseTypeTbl = require("../models/PurchaseTypeTbl");
+const BalanceTypeTbl = require("../models/BalanceTypeTbl");
+const ProductStockTbl = require("../models/ProductStockTbl");
 const ProductTbl = require("../models/ProductTbl");
 const PriceTbl = require("../models/PriceTbl");
-const ProductStockTbl = require("../models/ProductStockTbl");
+const ProductPriceTbl = require("../models/ProductPriceTbl");
 
 const knexCache = new Map();
 
@@ -42,13 +42,13 @@ exports.tenantMiddleware = async (req, res,next) => {
     req.knex = knexInstance
     /*================ Define Models Here ================= */
     req.models = {
-      PurchaseBillTbl: PurchaseBillTbl.bindKnex(knexInstance),
+      BalanceStockTbl: BalanceStockTbl.bindKnex(knexInstance),
       ProductCategoryTbl: ProductCategoryTbl.bindKnex(knexInstance),
-      PurchaseTbl: PurchaseTbl.bindKnex(knexInstance),
-      PurchaseTypeTbl: PurchaseTypeTbl.bindKnex(knexInstance),
+      BalanceTypeTbl: BalanceTypeTbl.bindKnex(knexInstance),
+      ProductStockTbl: ProductStockTbl.bindKnex(knexInstance),
       ProductTbl: ProductTbl.bindKnex(knexInstance),
       PriceTbl: PriceTbl.bindKnex(knexInstance),
-      ProductStockTbl: ProductStockTbl.bindKnex(knexInstance)
+      ProductPriceTbl: ProductPriceTbl.bindKnex(knexInstance)
     };
     next();
   } catch(e) {
