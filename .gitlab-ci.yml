@@ -20,7 +20,7 @@ test-job:
     - docker
   before_script:
     - apk add make
-    - npm install jest -g
+    - npm install jest
     - npm install
   script:
     - make -B test 
