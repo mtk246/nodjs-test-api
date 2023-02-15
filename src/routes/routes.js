@@ -21,19 +21,24 @@ router.use(authCheck)  // Pass through permission handler api!
 router.use(tenantMiddleware)
 
 router.get("/product/category", productCategoryController.get)
-router.post("/product/category",productCategoryController.insert)
-router.put("/product/category",productCategoryController.update)
+router.post("/product/category", productCategoryController.insert)
+router.put("/product/category", productCategoryController.update)
 
 router.get("/list/product",productController.listProducts)
 
-router.get("/product/price",productPriceController.get)
+router.get("/product/price", productPriceController.get)
+router.put("/product/price", productPriceController.update)
 
-router.get("/product",productController.get)
+router.get("/product", productController.get)
+router.put("/product", productController.update)
 
 router.get("/product/stock", productStockController.get);
 
 router.get("/balance/type", balanceTypeController.get);
+router.post("/balance/type", balanceTypeController.insert);
+router.put("/balance/type", balanceTypeController.update);
 
 router.get("/balance/stock", balanceStockController.get);
+router.post("/balance/stock", balanceStockController.insert);
 
 exports.api_router = router;

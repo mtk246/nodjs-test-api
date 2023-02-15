@@ -26,3 +26,22 @@ exports.get = ctrx(async (req,res) => {
         })
     }
 })
+
+/*
+* Description: INSERT
+* Method: @POST
+*/
+exports.insert = ctrx(async (req,res) => {
+    const {BalanceStockTbl} = req.models
+    const {balance_type_id,product_id,qty,price} = req.body
+    const result = await BalanceStockTbl.query().insert({
+        balance_type_id,
+        product_id,
+        qty,
+        price
+    })
+    return res.status(201).json({
+        message: "Success",
+        result: result
+    })
+});

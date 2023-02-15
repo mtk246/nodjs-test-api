@@ -25,3 +25,55 @@ exports.get = ctrx(async (req,res) => {
         result: await BalanceTypeTbl.query(),
     })
 })
+
+/*
+* Description: INSERT
+* Method: @POST
+*/
+exports.insert = ctrx(async (req,res) => {
+    const { BalanceTypeTbl } = req.models
+    const {
+        balance_type,
+        balance_status,
+        user_id,
+        channel_id,
+    } = req.body
+    const result = await BalanceTypeTbl.query().insert({
+        balance_type: balance_type,
+        status: balance_status,
+        user_id: user_id,
+        channel_id: channel_id,
+        updated_at: new Date().toISOString(),
+    })
+    return res.status(200).json({
+        message: "Success",
+        result: result
+    })
+});
+
+/*
+* Description: UPDATE
+* Method: @PUT
+*/
+exports.update = ctrx(async (req,res) => {
+    const { BalanceTypeTbl } = req.models
+    const {
+        balance_type_id,
+        balance_type,
+        balance_status,
+        user_id,
+        channel_id,
+    } = req.body
+    const result = await BalanceTypeTbl.query().patch({
+        balance_type: balance_type,
+        status: balance_status,
+        user_id: user_id,
+        channel_id: channel_id,
+        updated_at: new Date().toISOString(),
+    }).findById(balance_type_id);
+
+    return res.status(200).json({
+        message: "Success",
+        result: result
+    })
+});

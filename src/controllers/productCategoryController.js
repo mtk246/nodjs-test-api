@@ -34,7 +34,7 @@ exports.get = ctrx(async (req,res) => {
 * Method: @POST
 */
 exports.insert = ctrx(async (req,res) => {
-    const {ProductCategoryTbl} = req.models
+    const { ProductCategoryTbl } = req.models
     const { cat_name, user_id, channel_id} = req.body
     const result = await ProductCategoryTbl.query().insert({
         cat_id: uuid.v4(),
@@ -43,6 +43,7 @@ exports.insert = ctrx(async (req,res) => {
         channel_id: channel_id,
         created_at: new Date().toISOString()
     })
+
     return res.status(200).json({
         message: "Success",
         result: result
@@ -54,14 +55,15 @@ exports.insert = ctrx(async (req,res) => {
 * Method: @PUT
 */
 exports.update = ctrx(async (req,res) => {
-    const {ProductCategoryTbl} = req.models
+    const { ProductCategoryTbl } = req.models
     const { cat_id, cat_name, user_id, channel_id} = req.body
     const result = await ProductCategoryTbl.query().patch({
         cat_name: cat_name,
         user_id: user_id,
         channel_id: channel_id,
         updated_at: new Date().toISOString()
-    }).findById(cat_id)
+    }).findById(cat_id);
+
     return res.status(200).json({
         message: "Success",
         result: result

@@ -1,0 +1,17 @@
+{
+    "extends": [
+      "next/core-web-vitals"
+    ],
+      "parserOptions": {
+        "parser": "babel-eslint",
+        "ecmaVersion": 7,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "tsx": true
+        }
+    },
+    "rules": {
+        "max-len": ["error", 120]
+    }
+  }
+  
