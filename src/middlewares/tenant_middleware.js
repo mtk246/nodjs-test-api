@@ -7,6 +7,8 @@ const ProductStockTbl = require("../models/ProductStockTbl");
 const ProductTbl = require("../models/ProductTbl");
 const PriceTbl = require("../models/PriceTbl");
 const ProductPriceTbl = require("../models/ProductPriceTbl");
+const PackagingTypeTbl = require("../models/PackagingTypeTbl");
+const PriceGroupTbl = require("../models/PriceGroupTbl");
 
 const knexCache = new Map();
 
@@ -48,7 +50,9 @@ exports.tenantMiddleware = async (req, res,next) => {
       ProductStockTbl: ProductStockTbl.bindKnex(knexInstance),
       ProductTbl: ProductTbl.bindKnex(knexInstance),
       PriceTbl: PriceTbl.bindKnex(knexInstance),
-      ProductPriceTbl: ProductPriceTbl.bindKnex(knexInstance)
+      ProductPriceTbl: ProductPriceTbl.bindKnex(knexInstance),
+      PackagingTypeTbl: PackagingTypeTbl.bindKnex(knexInstance),
+      PriceGroupTbl: PriceGroupTbl.bindKnex(knexInstance),
     };
     next();
   } catch(e) {

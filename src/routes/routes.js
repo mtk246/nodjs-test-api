@@ -9,6 +9,8 @@ const productController = require("../controllers/productController");
 const productStockController = require("../controllers/productStockController");
 const balanceTypeController = require("../controllers/balanceTypeController");
 const balanceStockController = require("../controllers/balanceStockController");
+const packagingTypeController = require("../controllers/packagingTypeController");
+const priceGroupController = require("../controllers/priceGroupController");
 
 const router = require("express").Router();
 
@@ -16,21 +18,23 @@ const router = require("express").Router();
 //router.post("/login/:channel_id",userController.login)
 router.get("/", helloHandler.hello);
 
-router.use(authCheck)  // Pass through permission handler api!
+router.use(authCheck);  // Pass through permission handler api!
 
-router.use(tenantMiddleware)
+router.use(tenantMiddleware);
 
-router.get("/product/category", productCategoryController.get)
-router.post("/product/category", productCategoryController.insert)
-router.put("/product/category", productCategoryController.update)
+router.get("/list/product", productController.listProducts);
+router.get("/list/packagingType", packagingTypeController.listPackagingType);
+router.get("/list/priceGroup", priceGroupController.listPriceGroup);
 
-router.get("/list/product",productController.listProducts)
+router.get("/product/category", productCategoryController.get);
+router.post("/product/category", productCategoryController.insert);
+router.put("/product/category", productCategoryController.update);
 
-router.get("/product/price", productPriceController.get)
-router.put("/product/price", productPriceController.update)
+router.get("/product/price", productPriceController.get);
+router.put("/product/price", productPriceController.update);
 
-router.get("/product", productController.get)
-router.put("/product", productController.update)
+router.get("/product", productController.get);
+router.put("/product", productController.update);
 
 router.get("/product/stock", productStockController.get);
 
