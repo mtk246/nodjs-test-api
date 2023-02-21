@@ -7,9 +7,9 @@ const uuid = require("uuid");
 * Method: @GET
 */
 exports.get = ctrx(async (req,res) => {
-   const { cat_id }  = req.query
+   const { cat_id }  = req.query;
    const {ProductCategoryTbl} = req.models
-   if (cat_id) {
+    if (cat_id) {
         const result = await ProductCategoryTbl.query().findById(cat_id)
         if(!result) {
             return res.status(404).json({
@@ -25,8 +25,25 @@ exports.get = ctrx(async (req,res) => {
         return res.status(200).json({
             message: "Success",
             result: await new DB(req, `SELECT * FROM sch_stock_management.product_category_tbl`).find()
-        })
+        });
     }
+});
+
+/*
+* Description: Get Category By Shop
+* Method: @GET
+*/
+exports.getCategoryByShop = ctrx(async (req,res) => {
+    const { shop_id }  = req.body;
+    const query = await new DB(req,
+        `SELECT * FROM sch_stock_management.product_category_tbl
+        INNER JOIN sch_purchase_management.purchase_shop_tbl ON purchase_shop_tbl.purchase_shop_id = product_category_tbl.purchase_shop_id
+        WHERE product_category_tbl.purchase_shop_id='${shop_id}'`).find();
+    
+    return res.status(200).json({
+        message: "Success",
+        result: await query,
+    });
 })
 
 /*
