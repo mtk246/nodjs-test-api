@@ -27,7 +27,7 @@ router.get("/list/packagingType", packagingTypeController.listPackagingType);
 router.get("/list/priceGroup", priceGroupController.listPriceGroup);
 
 router.get("/product/category", productCategoryController.get);
-router.get("/product/categoryByShop", productCategoryController.getCategoryByShop);
+router.post("/product/categoryByShop", productCategoryController.getCategoryByShop);
 router.post("/product/category", productCategoryController.insert);
 router.put("/product/category", productCategoryController.update);
 

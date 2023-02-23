@@ -30,8 +30,8 @@ exports.get = ctrx(async (req,res) => {
 });
 
 /*
-* Description: Get Category By Shop
-* Method: @GET
+* Description: POST Category By Shop
+* Method: @POST
 */
 exports.getCategoryByShop = ctrx(async (req,res) => {
     const { shop_id }  = req.body;
