@@ -36,6 +36,7 @@ router.put("/product/price", productPriceController.update);
 
 router.get("/product", productController.get);
 router.put("/product", productController.update);
+router.post("/product/productsByShop", productController.getProductsByShop);
 
 router.get("/product/stock", productStockController.get);
 

@@ -15,6 +15,23 @@ exports.listProducts = ctrx(async (req,res) => {
 })
 
 /*
+* Description: POST Products By Shop
+* Method: @POST
+*/
+exports.getProductsByShop = ctrx(async (req,res) => {
+    const { shop_id }  = req.body;
+    const query = await new DB(req,
+        `SELECT * FROM sch_stock_management.product_tbl
+        INNER JOIN sch_purchase_management.purchase_shop_tbl ON purchase_shop_tbl.purchase_shop_id = product_tbl.purchase_shop_id
+        WHERE product_tbl.purchase_shop_id='${shop_id}'`).find();
+    
+    return res.status(200).json({
+        message: "Success",
+        result: await query,
+    });
+})
+
+/*
 * Description: Get Product
 * Method: @GET
 */
