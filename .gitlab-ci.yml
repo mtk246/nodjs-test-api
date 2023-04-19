@@ -30,9 +30,9 @@ build-job:
   tags:
     - ubuntu
   script:
-    - docker login registry.khitkabar.xyz:5443 -u khitkabar -p khit.kabar.registry.123
-    - docker build . --file Dockerfile --tag registry.khitkabar.xyz:5443/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
-    - docker push registry.khitkabar.xyz:5443/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
+    - docker login registry.khitkabar.com:5443 -u khitkabar -p khit.kabar.registry.123
+    - docker build . --file Dockerfile --tag registry.khitkabar.com:5443/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
+    - docker push registry.khitkabar.com:5443/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
 
 deploy-dev-job:
   stage: deploy
@@ -42,7 +42,7 @@ deploy-dev-job:
   tags:
     - ubuntu
   script:
-    - docker login registry.khitkabar.xyz:5443 -u khitkabar -p khit.kabar.registry.123
+    - docker login registry.khitkabar.com:5443 -u khitkabar -p khit.kabar.registry.123
     - source .server.env
     - docker-compose up -d
 
