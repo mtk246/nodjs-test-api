@@ -34,7 +34,6 @@ const query = (pool, sql, values) => {
     });
 };
 
-
 exports.pool = pool;
 exports.createPool = createPool;
 exports.query = query;
