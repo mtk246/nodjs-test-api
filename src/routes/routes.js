@@ -2,7 +2,6 @@
 
 const helloHandler = require("../controllers/hello_controller");
 const { authCheck } = require("../middlewares/jwt_middleware");
-const { tenantMiddleware } = require("../middlewares/tenant_middleware");
 const productCategoryController = require("../controllers/productCategoryController");
 const productPriceController = require("../controllers/productPriceController");
 const productController = require("../controllers/productController");
@@ -20,8 +19,6 @@ router.get("/", helloHandler.hello);
 
 router.use(authCheck);  // Pass through permission handler api!
 
-router.use(tenantMiddleware);
-
 router.get("/list/product", productController.listProducts);
 router.get("/list/packagingType", packagingTypeController.listPackagingType);
 router.get("/list/priceGroup", priceGroupController.listPriceGroup);
@@ -35,7 +32,7 @@ router.get("/product/price", productPriceController.get);
 router.put("/product/price", productPriceController.update);
 
 router.get("/product", productController.get);
-router.put("/product", productController.update);
+// router.put("/product", productController.update);
 router.post("/product/productsByShop", productController.getProductsByShop);
 
 router.get("/product/stock", productStockController.get);
@@ -45,6 +42,5 @@ router.post("/balance/type", balanceTypeController.insert);
 router.put("/balance/type", balanceTypeController.update);
 
 router.get("/balance/stock", balanceStockController.get);
-router.post("/balance/stock", balanceStockController.insert);
 
 exports.api_router = router;

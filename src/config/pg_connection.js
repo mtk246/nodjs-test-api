@@ -1,9 +1,39 @@
-const { default: knex } = require("knex");
-const { Model } = require("objection");
+const { Pool } = require('pg');
+require('dotenv').config();
 
-function pg_connect() {
-  const knexConfig = require("../../knexfile").development;
-  const knexConnection = knex(knexConfig);
-  Model.knex(knexConnection);
-}
-exports.pg_connect = pg_connect;
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
+});
+
+
+// Create a database pool to handle connections.
+const createPool = (channelId) => {
+    return new Pool({
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: channelId,
+        password: process.env.DB_PASS,
+        port: process.env.DB_PORT,
+    });
+};
+  
+  // Query the database and return a promise that resolves with the results.
+const query = (pool, sql, values) => {
+    return new Promise((resolve, reject) => {
+        pool.query(sql, values, (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows);
+            }
+        });
+    });
+};
+
+exports.pool = pool;
+exports.createPool = createPool;
+exports.query = query;
