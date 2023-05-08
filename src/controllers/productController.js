@@ -11,11 +11,54 @@ const { response } = require("../helper/response");
 exports.listProducts = ctrx(async (req,res) => {
     const channel_id = req.user.channel_id;
     const pool = createPool(channel_id);
+    const { page, size } = req.query;
+    const offset = (page - 1) * size;
+
+    const countRows = await query(
+        pool,
+        `SELECT COUNT(*) as total_rows FROM sch_stock_management.product_tbl`
+    );
+
+    const totalRows = countRows[0].total_rows;
+    const totalPages = Math.ceil(totalRows / size);
 
     const rows = await query(
         pool,
-        `SELECT product_id, product_name FROM sch_stock_management.product_tbl`,
+        `SELECT
+            p.product_id,
+            p.product_name,
+            p.init_product_unit,
+            p.init_product_qty,
+            p.total_product_unit,
+            p.total_product_qty,
+            p.buy_price,
+            p.total_buy_price,
+            p.sell_price,
+            p.price_id,
+            p.cat_id,
+            p.packaging_type_id,
+            p.price_gp_id,
+            p.purchase_shop_id,
+            pt.price_type,
+            pt.price,
+            c.cat_name,
+            pack.packaging_type,
+            pg.price_gp_name,
+            ps.shop_name,
+            ps.phone,
+            ps.address
+        FROM sch_stock_management.product_tbl p
+            INNER JOIN sch_stock_management.price_tbl pt ON pt.product_id = p.product_id
+            INNER JOIN sch_stock_management.product_category_tbl c ON c.cat_id = p.cat_id
+            INNER JOIN sch_stock_management.packaging_type_tbl pack ON pack.packaging_type_id = p.packaging_type_id
+            INNER JOIN sch_stock_management.price_gp_tbl pg ON pg.price_gp_id = p.price_gp_id
+            INNER JOIN sch_purchase_management.purchase_shop_tbl ps ON ps.purchase_shop_id = p.purchase_shop_id
+        ORDER BY p.created_at DESC LIMIT $1 OFFSET $2
+        `,
+        [size, offset],
     );
+
+    rows.push({total_pages: totalPages})
 
     response(res, rows);
 })
