@@ -11,16 +11,6 @@ const { response } = require("../helper/response");
 exports.listProducts = ctrx(async (req,res) => {
     const channel_id = req.user.channel_id;
     const pool = createPool(channel_id);
-    const { page, size } = req.query;
-    const offset = (page - 1) * size;
-
-    const countRows = await query(
-        pool,
-        `SELECT COUNT(*) as total_rows FROM sch_stock_management.product_tbl`
-    );
-
-    const totalRows = countRows[0].total_rows;
-    const totalPages = Math.ceil(totalRows / size);
 
     const rows = await query(
         pool,
@@ -53,12 +43,9 @@ exports.listProducts = ctrx(async (req,res) => {
             INNER JOIN sch_stock_management.packaging_type_tbl pack ON pack.packaging_type_id = p.packaging_type_id
             INNER JOIN sch_stock_management.price_gp_tbl pg ON pg.price_gp_id = p.price_gp_id
             INNER JOIN sch_purchase_management.purchase_shop_tbl ps ON ps.purchase_shop_id = p.purchase_shop_id
-        ORDER BY p.created_at DESC LIMIT $1 OFFSET $2
+        ORDER BY p.created_at DESC
         `,
-        [size, offset],
     );
-
-    rows.push({total_pages: totalPages})
 
     response(res, rows);
 })
