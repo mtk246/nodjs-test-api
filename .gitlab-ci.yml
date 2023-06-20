@@ -51,7 +51,8 @@ deploy-prod-job:
   tags:
     - ubuntu
   only:
-    - master
+    - main
   script:
+    - docker login registry.khitkabar.com:5443 -u khitkabar -p khit.kabar.registry.123
     - source .server.env
     - docker-compose up -d
