@@ -1,7 +1,7 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
-const { pg_connect } = require("./src/config/pg_connection");
+const { pool } = require("./src/config/pg_connection");
 const { setPgTypes } = require("./src/helper/pg_types");
 const { errorHandler } = require("./src/middlewares/error_middlware");
 const { log_middleware } = require("./src/middlewares/log_middlware");
@@ -13,9 +13,10 @@ require("dotenv").config();
 /* Set PG Types , So, Integer will not be string */
 setPgTypes();
 // Connect PG Connection
-pg_connect();
-
-const SERVER_PORT = process.env.SERVER_PORT || 8001;
+pool.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+const SERVER_PORT = process.env.SERVER_PORT || 8000;
 app.use(log_middleware);
 app.use(cors())
 
@@ -26,4 +27,5 @@ app.use(errorHandler);
 
 app.listen(SERVER_PORT, () => {
   console.log(`Server Listening At :${SERVER_PORT}`);
+});
 });
