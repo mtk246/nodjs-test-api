@@ -17,7 +17,7 @@ const router = require("express").Router();
  // public Routes
 //router.post("/login/:channel_id",userController.login)
 router.get("/", helloHandler.hello);
-router.post('/public/upload', excelController.publicStock);
+router.post('/public/upload/:table_name', excelController.publicStock);
 
 router.use(authCheck);  // Pass through permission handler api!
 
