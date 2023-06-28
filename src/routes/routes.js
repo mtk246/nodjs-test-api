@@ -11,6 +11,7 @@ const balanceStockController = require("../controllers/balanceStockController");
 const packagingTypeController = require("../controllers/packagingTypeController");
 const priceGroupController = require("../controllers/priceGroupController");
 const excelController = require("../controllers/excelController");
+const publicController = require("../controllers/publicController");
 
 const router = require("express").Router();
 
@@ -18,6 +19,7 @@ const router = require("express").Router();
 //router.post("/login/:channel_id",userController.login)
 router.get("/", helloHandler.hello);
 router.post('/public/upload/:table_name', excelController.publicStock);
+router.get('/public/:table_name', publicController.get);
 
 router.use(authCheck);  // Pass through permission handler api!
 
