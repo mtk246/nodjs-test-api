@@ -6,7 +6,6 @@ exports.get = async (req, res) => {
     const { product_id } = req.query;
 
     if (product_id) {
-        console.log(product_id)
         const pool = createPool('public_db');
 
         const rows = `SELECT * FROM ${table_name} WHERE product_id = '${product_id}'`;
@@ -32,7 +31,7 @@ exports.get = async (req, res) => {
     
 };
 
-exports.update = async (req, res) {
+exports.update = async (req, res) => {
     const table_name = req.params.table_name;
     const {
         product_id,
