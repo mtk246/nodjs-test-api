@@ -20,6 +20,7 @@ const router = require("express").Router();
 router.get("/", helloHandler.hello);
 router.post('/public/upload/:table_name', excelController.publicStock);
 router.get('/public/:table_name', publicController.get);
+router.get('/public/:table_name/:product_id', publicController.getProduct);
 
 router.use(authCheck);  // Pass through permission handler api!
 
