@@ -45,7 +45,7 @@ deploy-dev-job:
     - docker login registry.khitkabar.com:5443 -u khitkabar -p khit.kabar.registry.123
     - source .server.env
     - docker-compose up -d
-    - docker builder prune -a -f
+    - docker volume prune -f && docker builder prune -f && docker image prune -a -f
 
 deploy-prod-job:
   stage: deploy
