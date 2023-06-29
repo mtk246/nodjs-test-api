@@ -7,8 +7,8 @@ const pool = new Pool({
     database: process.env.DB_NAME,
     password: process.env.DB_PASS,
     port: process.env.DB_PORT,
+    ssl: { rejectUnauthorized: false, sslmode: 'require' }
 });
-
 
 // Create a database pool to handle connections.
 const createPool = (channelId) => {
@@ -18,6 +18,7 @@ const createPool = (channelId) => {
         database: channelId,
         password: process.env.DB_PASS,
         port: process.env.DB_PORT,
+        ssl: { rejectUnauthorized: false, sslmode: 'require' }
     });
 };
   
