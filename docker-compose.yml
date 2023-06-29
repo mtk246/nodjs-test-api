@@ -2,16 +2,8 @@ version: "3.3"
 
 services:
   service:
-    image: "registry.khitkabar.com:5443/${CI_PROJECT_NAME}:${CI_COMMIT_BRANCH}"
-    container_name: "${CI_PROJECT_NAME}-${CI_COMMIT_BRANCH}"
-    networks:
-      - server
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${CI_PROJECT_NAME}-${CI_COMMIT_BRANCH}.rule=PathPrefix(`${ROUTE}`)"
-      #- "traefik.http.routers.ops-${CI_COMMIT_BRANCH}.entrypoints=web"
-      #- "traefik.http.services.traefik.loadbalancer.server.port=8000"
-
-networks:
-  server:
-    external: true
+    image: "nodejs-test-api"
+    container_name: "nodejs-test-api"
+    build:
+      context: .
+      dockerfile: Dockerfile
